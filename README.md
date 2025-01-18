@@ -1,5 +1,13 @@
 # Setup Vetty_Assignment in Local
 
+### API Documentataion Link:
+- **Swagger UI:** http://127.0.0.1:8080/swagger/
+
+- **ReDoc:** http://127.0.0.1:8080/redoc/
+
+- **JSON/YAML Schema:** http://127.0.0.1:8080/swagger.json or http://127.0.0.1:8080/swagger.yaml
+
+
 ### Clone the Repo:
 ```bash
 git clone https://github.com/Shoony0/Vetty_Assignment.git

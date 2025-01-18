@@ -1,0 +1,57 @@
+# Compose file format supported till version 18.06.0+ is 3.7
+version: "3.7"
+
+services:
+  mysql_db:
+    image: mysql:9.0.1
+    restart: always
+    container_name: mysql_db
+    environment:
+      MYSQL_DATABASE: 'vetty_db'
+      MYSQL_USER: 'vetty_user'
+      MYSQL_PORT: '3306'
+      MYSQL_PASSWORD: 'test_password123'
+      # MYSQL_ROOT_PASSWORD: 'test_password123'
+    volumes:
+      - type: bind
+        source: mysql_data
+        target: /var/lib/mysql
+      - type: bind
+        source: ./init.sql
+        target: /docker-entrypoint-initdb.d/init.sql:ro # Mount initialization script
+    networks:
+      - drf_assignment_network
+
+  django:
+    build: .
+    restart: always
+    container_name: django
+    environment:
+      - DEBUG=1
+    depends_on:
+      - mysql_db
+    ports:
+      - 8080:8000
+    command:
+      - sh
+      - -c
+      - |
+        python manage.py makemigrations
+        python manage.py migrate
+        python manage.py runserver 0.0.0.0:8000 
+    # --noreload
+    healthcheck:
+      test: ["CMD", "mysql", "-h", "localhost", "-u", "vetty_user", "-ptest_password123", "-e", "SELECT 1"]
+      timeout: 20s
+      retries: 10
+    networks:
+      - drf_assignment_network
+
+
+
+volumes:
+  mysql_data:
+
+networks:
+  drf_assignment_network:
+    driver: bridge

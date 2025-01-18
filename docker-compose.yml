@@ -7,11 +7,11 @@ services:
     restart: always
     container_name: mysql_db
     environment:
-      MYSQL_DATABASE: 'vetty_db'
-      MYSQL_USER: 'vetty_user'
-      MYSQL_PORT: '3306'
-      MYSQL_PASSWORD: 'test_password123'
-      # MYSQL_ROOT_PASSWORD: 'test_password123'
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PORT: ${PORT}
+      MYSQL_PASSWORD: ${PASSWORD}
+      # MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD}
     volumes:
       - type: bind
         source: mysql_data
@@ -26,8 +26,6 @@ services:
     build: .
     restart: always
     container_name: django
-    environment:
-      - DEBUG=1
     depends_on:
       - mysql_db
     ports:
@@ -41,7 +39,7 @@ services:
         python manage.py runserver 0.0.0.0:8000 
     # --noreload
     healthcheck:
-      test: ["CMD", "mysql", "-h", "localhost", "-u", "vetty_user", "-ptest_password123", "-e", "SELECT 1"]
+      test: ["CMD", "mysql", "-h", "${DB_HOST}", "-u", "${DB_USER}", "-p${DB_PASSWORD}", "-e", "SELECT 1"]
       timeout: 20s
       retries: 10
     networks:

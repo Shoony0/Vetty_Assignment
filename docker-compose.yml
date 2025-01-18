@@ -2,27 +2,6 @@
 version: "3.7"
 
 services:
-  mysql_db:
-    image: mysql:9.0.1
-    restart: always
-    container_name: mysql_db
-    environment:
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PORT: ${DB_PORT}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_ALLOW_EMPTY_PASSWORD: true
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-    volumes:
-      - type: bind
-        source: mysql_data
-        target: /var/lib/mysql
-      - type: bind
-        source: ./init.sql
-        target: /docker-entrypoint-initdb.d/init.sql:ro # Mount initialization script
-    networks:
-      - drf_assignment_network
-
   django:
     build: .
     restart: always
@@ -31,8 +10,6 @@ services:
       - type: bind
         source: .
         target: /app/src
-    depends_on:
-      - mysql_db
     ports:
       - 8080:8000
     command:
@@ -42,17 +19,8 @@ services:
         python manage.py makemigrations
         python manage.py migrate
         python manage.py runserver 0.0.0.0:8000 
-    healthcheck:
-      test: ["CMD", "mysql", "-h", "${DB_HOST}", "-u", "${DB_USER}", "-p${DB_PASSWORD}", "-e", "SELECT 1"]
-      timeout: 20s
-      retries: 10
     networks:
       - drf_assignment_network
-
-
-
-volumes:
-  mysql_data:
 
 networks:
   drf_assignment_network:

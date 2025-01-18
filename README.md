@@ -5,7 +5,7 @@
 git clone https://github.com/Shoony0/Vetty_Assignment.git
 ```
 
-# Go to **Vetty_Assignment/** folder and execute command:
+# Go to **Vetty_Assignment/** folder:
 ```bash
 cd Vetty_Assignment
 ```

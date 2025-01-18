@@ -9,9 +9,9 @@ services:
     environment:
       MYSQL_DATABASE: ${DB_NAME}
       MYSQL_USER: ${DB_USER}
-      MYSQL_PORT: ${PORT}
-      MYSQL_PASSWORD: ${PASSWORD}
-      # MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD}
+      MYSQL_PORT: ${DB_PORT}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: true
     volumes:
       - type: bind
         source: mysql_data
@@ -37,7 +37,6 @@ services:
         python manage.py makemigrations
         python manage.py migrate
         python manage.py runserver 0.0.0.0:8000 
-    # --noreload
     healthcheck:
       test: ["CMD", "mysql", "-h", "${DB_HOST}", "-u", "${DB_USER}", "-p${DB_PASSWORD}", "-e", "SELECT 1"]
       timeout: 20s

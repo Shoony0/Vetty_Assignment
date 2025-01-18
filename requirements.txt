@@ -4,3 +4,4 @@ requests==2.32.3
 djangorestframework_simplejwt==5.4.0
 mysqlclient>=2.2.7
 drf_yasg==1.21.8
+python-dotenv

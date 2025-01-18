@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables from the .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-+79ec@v&3+u)5fqg68uev^+-veaf07#x_b-_=37zjoucctn0#0"
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = []
 
@@ -79,11 +83,11 @@ WSGI_APPLICATION = "VettyAssignment.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'vetty_db',
-        'USER': 'vetty_user',
-        'PASSWORD': 'test_password123',
-        'HOST': 'mysql_db',  # Or the IP of your MySQL server
-        'PORT': '3306',       # Default MySQL port
+        'NAME': os.getenv('NAME'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASSWORD'),
+        'HOST': os.getenv('HOST'),  # Or the IP of your MySQL server
+        'PORT': os.getenv('PORT'),       # Default MySQL port
         'OPTIONS': {
             'sql_mode': 'STRICT_TRANS_TABLES',
         },
@@ -146,6 +150,6 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-X_CG_DEMO_API_KEY = "CG-hdweHBzqM4Sfe4WuwVoGd94c"
-VERSION = 1.0
-COIN_API_URL = "https://api.coingecko.com/api/v3/coins"
+X_CG_DEMO_API_KEY = os.getenv('X_CG_DEMO_API_KEY')
+VERSION = os.getenv('VERSION')
+COIN_API_URL = os.getenv('COIN_API_URL')

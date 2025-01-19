@@ -18,7 +18,7 @@ git clone https://github.com/Shoony0/Vetty_Assignment.git
 cd Vetty_Assignment
 ```
 
-### Run Docker Compose command to setup django and mysql sever:
+### Run Docker Compose command to setup djang sever:
 ```bash
 docker compose --env-file .env -f docker-compose.yml up --build --force-recreate --remove-orphans
 ```
@@ -28,7 +28,7 @@ docker compose --env-file .env -f docker-compose.yml up --build --force-recreate
 ```bash
 docker compose --env-file .env -f docker-compose.yml exec django /bin/bash
 ```
-#### Run the tests with coverag:
+#### Run the tests with coverage:
 ```bash
 coverage run manage.py test
 ```

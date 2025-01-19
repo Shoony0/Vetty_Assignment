@@ -1,5 +1,9 @@
 # Setup Vetty_Assignment in Local
 
+### Required Tools:
+- Docker version 27.1.1
+- docker-compose version 1.29.2
+
 ### API Documentataion Link:
 - **Swagger UI:** http://127.0.0.1:8080/swagger/
 

@@ -2,8 +2,7 @@
 
 ### Required Tools:
 - Docker version 27.1.1
-- docker-compose version 1.29.2
-
+- 
 ### API Documentataion Link:
 - **Swagger UI:** http://127.0.0.1:8080/swagger/
 
@@ -22,7 +21,7 @@ git clone https://github.com/Shoony0/Vetty_Assignment.git
 cd Vetty_Assignment
 ```
 
-### Run Docker Compose command to setup djang sever:
+### Run Docker Compose command to setup django sever:
 ```bash
 docker compose --env-file .env -f docker-compose.yml up --build --force-recreate --remove-orphans
 ```
